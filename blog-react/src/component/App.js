@@ -21,15 +21,14 @@ class App extends Component{
       <div>
 
         <Navbar />
-
         <Header />
 
         <Router history={BrowserHistory}>
-          <Route path="/" component={Home}></Route>
-          <Route path="/about" component={About}></Route>
-          <Route path="/contact" component={Contact}></Route>
-          <Route path="/posts" component={Posts}></Route>
-          <Route path="/post/:id" component={Post} match="exact"></Route>
+          <Route path="/" component={Home} exact={true}></Route>
+          <Route path="/about" component={About} exact={true}></Route>
+          <Route path="/contact" component={Contact} exact={true}></Route>
+          <Route path="/posts" component={Posts} exact={true}></Route>
+          <Route path="/post/:id" component={Post} exact={true}></Route>
 
           <Route path="*" component={E404}></Route>
         </Router>
