@@ -28,9 +28,8 @@ class App extends Component{
           <Route path="/" component={Home}></Route>
           <Route path="/about" component={About}></Route>
           <Route path="/contact" component={Contact}></Route>
-          <Route path="/posts" component={Posts}>
-            <Route path="/post/:id" component={Post}></Route>
-          </Route>
+          <Route path="/posts" component={Posts}></Route>
+          <Route path="/post/:id" component={Post} match="exact"></Route>
 
           <Route path="*" component={E404}></Route>
         </Router>
