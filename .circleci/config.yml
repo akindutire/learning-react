@@ -14,11 +14,11 @@ jobs:
           name: "Store var"
           command: |
             echo $NAME > output.txt
-            mkdir ~/outs
+            mkdir outs
       - save_cache:
           key: v1-prj
           paths: 
-            - ~/outs
+            - outs
   print_hello:
     docker:
       - image: circleci/node:13.8.0
@@ -31,7 +31,7 @@ jobs:
           name: "Print hello"
           command: | 
             echo 'hello'
-            cat ~/outs/output.txt
+            cat outs/output.txt
   print_world:
     docker:
       - image: circleci/node:13.8.0
