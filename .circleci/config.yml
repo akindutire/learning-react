@@ -52,7 +52,7 @@ workflows:
   default:
     jobs:
       - store_var
-      - print_hello
+      - print_hello:
           requires:
             - store_var
       - print_world:
