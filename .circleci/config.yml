@@ -13,8 +13,9 @@ jobs:
       - run: 
           name: "Store var"
           command: |
-            mkdir outs
-            echo $NAME > outs/output.txt
+            mkdir ~/outs
+            echo $NAME > ~/outs/output.txt
+            ls .
       - save_cache:
           key: v1-prj
           paths: 
@@ -29,7 +30,8 @@ jobs:
             - v1-prj
       - run: 
           name: "Print hello"
-          command: | 
+          command: |
+            ls . 
             echo 'hello'
             cat outs/output.txt
   print_world:
