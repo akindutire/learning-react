@@ -14,7 +14,7 @@ jobs:
           name: "Store var"
           command: echo $NAME > output.txt
       - save_cache:
-          key: v1-{{ checksum 'output'}}
+          key: v1-prj
           paths: 
             - ~/output.txt
   print_hello:
@@ -24,7 +24,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-{{ checksum 'output'}}
+            - v1-prj
       - run: 
           name: "Print hello"
           command: | 
