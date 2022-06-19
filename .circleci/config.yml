@@ -14,7 +14,7 @@ jobs:
           name: "Store var"
           command: |
             echo $NAME > output.txt
-            mkdir outs
+            mkdir ~/outs
       - save_cache:
           key: v1-prj
           paths: 
