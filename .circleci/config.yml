@@ -37,7 +37,8 @@ jobs:
           command: |
             ls . 
             echo 'hello'
-            cat ~/output.txt
+            #cat ~/output.txt
+            cat /home/circleci/project/output.txt
   print_world:
     docker:
       - image: circleci/node:13.8.0
