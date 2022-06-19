@@ -5,11 +5,21 @@ defaults: &DAD
     
 version: 2.1
 
+commands:
+  sy:
+    parameters:
+      to:
+        type: string
+        default: "crze"
+    steps:
+      - run : echo << parameters.to >>
 jobs:
   store_var:
     <<: *DAD
     steps:
       - checkout
+      - sy:
+          to: "ZXEA"
       - run: 
           name: "Store var"
           command: |
