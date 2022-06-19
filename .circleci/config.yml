@@ -18,6 +18,10 @@ jobs:
           root: ~/
           paths:
             - output.txt
+      # - save_cache:
+      #     key: v2-prj
+      #     paths:
+      #       - ~/output.txt
   print_hello:
     docker:
       - image: circleci/node:13.8.0
@@ -49,6 +53,8 @@ workflows:
     jobs:
       - store_var
       - print_hello
+          requires:
+            - store_var
       - print_world:
           requires:
             - print_hello
