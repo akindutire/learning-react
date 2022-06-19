@@ -13,11 +13,11 @@ jobs:
       - run: 
           name: "Store var"
           command: |
-            echo $NAME > out.txt
+            echo $NAME > output.txt
       - save_cache:
-          key: v1-prj
+          key: v2-prj
           paths: 
-            - out.txt
+            - output.txt
   print_hello:
     docker:
       - image: circleci/node:13.8.0
@@ -25,13 +25,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-prj
+            - v2-prj
       - run: 
           name: "Print hello"
           command: |
             ls . 
             echo 'hello'
-            cat /home/circleci/out.txt
+            cat /home/circleci/output.txt
   print_world:
     docker:
       - image: circleci/node:13.8.0
