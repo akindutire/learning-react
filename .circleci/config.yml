@@ -41,7 +41,7 @@ jobs:
 workflows:
   default:
     jobs:
-      - print_var
+      - store_var
       - print_hello
       - print_world:
           requires:
