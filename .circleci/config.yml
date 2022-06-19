@@ -56,6 +56,9 @@ jobs:
       - run: exit 1
       - run: 
           name: "Print world"
+          command: echo "world passed"
+      - run: 
+          name: "Print world"
           command: echo "world failed"
           when: on_fail
 
