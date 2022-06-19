@@ -15,7 +15,8 @@ jobs:
           command: echo $NAME > output.txt
       - save_cache:
           key: v1-{{ checksum 'project-clk'}}
-          path: ~/output.txt
+          paths: 
+            - ~/output.txt
   print_hello:
     docker:
       - image: circleci/node:13.8.0
