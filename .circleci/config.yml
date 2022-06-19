@@ -5,18 +5,14 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  print_var:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - run: 
+          name: "Print name"
+          command: echo $NAME
   print_hello:
     docker:
       - image: circleci/node:13.8.0
@@ -35,9 +31,9 @@ jobs:
           command: echo world
 
 workflows:
-  say-hello-workflow:
+  default:
     jobs:
-      - say-hello
+      - print_var
       - print_hello
       - print_world:
           requires:
