@@ -14,11 +14,10 @@ jobs:
           name: "Store var"
           command: |
             echo $NAME > ~/output.txt
-            ls .
       - save_cache:
           key: v1-prj
           paths: 
-            - ~/output.txt
+            - output.txt
   print_hello:
     docker:
       - image: circleci/node:13.8.0
