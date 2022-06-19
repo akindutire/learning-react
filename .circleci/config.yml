@@ -22,14 +22,14 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-{{ checksum 'project-clk'}}
       - run: 
           name: "Print hello"
           command: | 
             echo 'hello'
             cat ~/output.txt
-      - restore_cache:
-          keys:
-            - v1-{{ checksum 'project-clk'}}
   print_world:
     docker:
       - image: circleci/node:13.8.0
