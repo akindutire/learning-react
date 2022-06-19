@@ -18,20 +18,27 @@ jobs:
           key: v2-prj
           paths: 
             - output.txt
+      - persist_to_workspace:
+        root: ~/
+        paths:
+          - output.txt
   print_hello:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v2-prj
+      # - restore_cache:
+      #     keys:
+      #       - v2-prj
+      - attach_workspace:
+        at: ~/
       - run: 
           name: "Print hello"
           command: |
             ls . 
             echo 'hello'
-            cat /home/circleci/project/output.txt
+            cat output.txt
+            #cat /home/circleci/project/output.txt
   print_world:
     docker:
       - image: circleci/node:13.8.0
