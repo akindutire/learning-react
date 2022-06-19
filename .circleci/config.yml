@@ -13,50 +13,60 @@ commands:
         default: "crze"
     steps:
       - run : echo << parameters.to >>
+
+      
 jobs:
-  store_var:
+  build:
     <<: *DAD
     steps:
       - checkout
-      - sy:
-          to: "ZXEA"
       - run: 
-          name: "Store var"
-          command: |
-            echo $NAME > output.txt
-      - persist_to_workspace:
-          root: ~/react
+          name: "Install packages"
+          command: npm i
+      - save_cache:
+          key: v2-node-modules
           paths:
-            - output.txt
-      # - save_cache:
-      #     key: v2-prj
+            - ~/react/node_modules
+      # - sy:
+      #     to: "ZXEA"
+      # - run: 
+      #     name: "Install packages"
+      #     command: |
+      #       echo $NAME > output.txt
+      # - persist_to_workspace:
+      #     root: ~/react
       #     paths:
-      #       - ~/output.txt
-  print_hello:
+      #       - output.txt
+  test:
     <<: *DAD
     steps:
       - checkout
-      # - restore_cache:
-      #     keys:
-      #       - v2-prj
-      - attach_workspace:
-          at: ~/react
-      - run: 
-          name: "Print hello"
-          command: |
-            ls . 
-            echo 'hello'
-            cat ~/react/output.txt
-            #cat /home/circleci/project/output.txt
-  print_world:
-    docker:
-      - image: circleci/node:13.8.0
+      - restore_cache:
+          keys:
+            - v2-node-modules
+      - run: npm run test
+
+      # - attach_workspace:
+      #     at: ~/react
+      # - run: 
+      #     name: "Print hello"
+      #     command: |
+      #       ls . 
+      #       echo 'hello'
+      #       cat ~/react/output.txt
+      #       #cat /home/circleci/project/output.txt
+  analyze:
+    <<: *DAD
     steps:
       - checkout
       # - run: exit 1
-      - run: 
-          name: "Print world"
-          command: echo "world passed"
+      # - run: 
+      #     name: "Print world"
+      #     command: echo "world passed"
+      - restore_cache:
+          keys:
+            - v2-node-modules
+      - run: npm audit
       - run: 
           name: "Print world"
           command: echo "world failed"
@@ -65,10 +75,10 @@ jobs:
 workflows:
   default:
     jobs:
-      - store_var
-      - print_hello:
+      - build
+      - test:
           requires:
-            - store_var
-      - print_world:
+            - build
+      - analyze:
           requires:
-            - print_hello
+            - test
