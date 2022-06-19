@@ -1,21 +1,21 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
-jobs:
-  store_var:
+defaults: &DAD
     docker:
       - image: circleci/node:13.8.0
+    working_directory: ~/react 
+    
+version: 2.1
+
+jobs:
+  store_var:
+    <<: *DAD
     steps:
       - checkout
       - run: 
           name: "Store var"
           command: |
-            echo $NAME > ~/output.txt
+            echo $NAME > output.txt
       - persist_to_workspace:
-          root: ~/
+          root: ~/react
           paths:
             - output.txt
       # - save_cache:
@@ -23,21 +23,20 @@ jobs:
       #     paths:
       #       - ~/output.txt
   print_hello:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *DAD
     steps:
       - checkout
       # - restore_cache:
       #     keys:
       #       - v2-prj
       - attach_workspace:
-          at: ~/
+          at: ~/react
       - run: 
           name: "Print hello"
           command: |
             ls . 
             echo 'hello'
-            cat ~/output.txt
+            cat ~/react/output.txt
             #cat /home/circleci/project/output.txt
   print_world:
     docker:
