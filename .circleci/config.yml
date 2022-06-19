@@ -14,10 +14,10 @@ jobs:
           name: "Store var"
           command: |
             echo $NAME > output.txt
-      - save_cache:
-          key: v2-prj
-          paths: 
-            - output.txt
+      # - save_cache:
+      #     key: v2-prj
+      #     paths: 
+      #       - output.txt
       - persist_to_workspace:
           root: ~/
           paths:
