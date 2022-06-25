@@ -18,9 +18,16 @@
    state: latest
    update_cache: true
 
-- name: "copy build files"
+- name: "copy all files"
   become: yes
   copy:
-   src: build/*
+   src: ./
    dest: ~/
    backup: true
+
+- name: "run app"
+  become: yes
+  shell:
+   "npm start"
+  args:
+   chdir: ~/web/

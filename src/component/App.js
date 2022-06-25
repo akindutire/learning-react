@@ -10,6 +10,7 @@ import Contact from './contact/Contact';
 import E404 from './E404';
 
 import {BrowserRouter as Router, Route, useLocation} from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 class App extends Component{
   
@@ -21,14 +22,17 @@ class App extends Component{
 
           <Navbar />
 
-          <Route path="/" component={Home} exact={true}></Route>
-          <Route path="/about" component={About} exact={true}></Route>
-          <Route path="/contact" component={Contact} exact={true}></Route>
-          <Route path="/posts" component={Posts} exact={true}></Route>
-          <Route path="/post/:id" component={Post} exact={true}></Route>
+          <Switch>
 
-          <Route path="*" component={E404}></Route>
-        
+            <Route path="/" component={Home} exact={true}></Route>
+            <Route path="/about" component={About} exact={true}></Route>
+            <Route path="/contact" component={Contact} exact={true}></Route>
+            <Route path="/posts" component={Posts} exact={true}></Route>
+            <Route path="/post/:id" component={Post} exact={true}></Route>
+
+            <Route path="*" component={E404}></Route>
+          
+          </Switch>        
 
           <Footer />
         

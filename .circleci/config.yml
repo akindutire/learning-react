@@ -108,6 +108,10 @@ jobs:
             --filters 'Name=tag:Project, Values=Udacity' \
             --output text >> ansible/inventory
       - run:
+          name: Copy project files to configure
+          command: |
+            cp -r ./* ./ansible/roles/configure/files
+      - run:
           name: Configure setup
           command: |
             ansible-playbook -i ansible/inventory ansible/playbook.yml

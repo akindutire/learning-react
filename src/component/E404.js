@@ -9,7 +9,7 @@ class E404 extends Component{
       
       <div>
 
-          <img src="./../img/E404.png" width="100%" height="auto" alt='404'/> 
+          <img src="/img/E404.png" width="100%" height="auto" alt='404jhhbkjhklhkjhgjkj'/> 
         
       </div>
 
