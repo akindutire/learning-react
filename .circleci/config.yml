@@ -87,6 +87,31 @@ jobs:
             --template-file cfn/template.yml \
             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
             --region us-east-1
+  configure_infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    working_directory: ~/react
+    steps:
+      - checkout
+      - add_ssh_keys: 
+          fingerprints: ["93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"]
+      - run:
+          name: Install ansible
+          command: | 
+            apk add --update ansible
+      - run:
+          name: Create inventory file
+          command: |
+            echo "[all]" > ansible/inventory
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --filters 'Name=tag:Project, Values=Udacity' \
+            --output text >> ansible/inventory
+      - run:
+          name: Configure setup
+          command: |
+            ansible-playbook -i ansible/inventory ansible/playbook.yml
+
 workflows:
   default:
     jobs:
@@ -100,3 +125,6 @@ workflows:
       - infrastructure_setup:
           requires:
             - analyze
+      - configure_infrastructure
+          requires:
+            - infrastructure_setup

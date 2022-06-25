@@ -1,0 +1,26 @@
+- name: "Ansi Install packages"
+  become: yes
+  yum:
+    update_cache: yes
+    state: latest
+
+- name: "pull nodejs12 artifacts"
+  become: yes
+  shell:
+   "curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -"
+  args:
+   chdir: "~/"
+
+- name: "install dependencies"
+  become: yes
+  yum:
+   name: "nodejs"
+   state: latest
+   update_cache: true
+
+- name: "copy build files"
+  become: yes
+  copy:
+   src: build/*
+   dest: ~/
+   backup: true
