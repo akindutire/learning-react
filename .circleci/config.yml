@@ -122,7 +122,8 @@ jobs:
       - run:
           name: Copy project files to configure
           command: |
-            cp -r ./* /ansible/roles/configure/files
+            #cp -r --parents ./* /ansible/roles/configure/files
+            rsync -a ./* /ansible/roles/configure/files/
       - restore_cache:
           keys: 
             - inventory-file
