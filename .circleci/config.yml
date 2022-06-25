@@ -129,6 +129,6 @@ workflows:
       - infrastructure_setup:
           requires:
             - analyze
-      - configure_infrastructure
+      - configure_infrastructure:
           requires:
             - infrastructure_setup
