@@ -127,14 +127,14 @@ jobs:
           name: Copy project files to configure
           command: |
             ls -a .
-            cp -r --parents public ansible/roles/configure/files
-            cp -r --parents src ansible/roles/configure/files
-            cp -r --parents node_modules ansible/roles/configure/files
-            cp -r --parents default.conf ansible/roles/configure/files
-            cp -r --parents Dockerfile ansible/roles/configure/files
-            cp -r --parents .dockerignore ansible/roles/configure/files
-            cp -r --parents package.json ansible/roles/configure/files
-            cp -r --parents package-lock.json ansible/roles/configure/files
+            cp -r --parents public/* ansible/roles/configure/files/public
+            cp -r --parents src/* ansible/roles/configure/files/src
+            cp -r --parents node_modules/* ansible/roles/configure/files/node_modules
+            cp default.conf ansible/roles/configure/files
+            cp Dockerfile ansible/roles/configure/files
+            cp .dockerignore ansible/roles/configure/files
+            cp package.json ansible/roles/configure/files
+            cp package-lock.json ansible/roles/configure/files
             ls -a ansible/roles/configure/files
       - run:
           name: Configure setup
