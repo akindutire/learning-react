@@ -26,7 +26,6 @@ jobs:
       - run: 
           name: "Install packages"
           command: npm install --no-save
-      - run: ls 
       # - run: npm lint
       - save_cache:
           key: node-modules-{{ checksum "package.json" }}
@@ -80,6 +79,9 @@ jobs:
     working_directory: ~/react
     steps:
       - checkout
+      - restore_cache:
+          keys: 
+            - node-modules-{{ checksum "package.json" }}
       - run:
           name: "Run cloudformation to create infrastructure"
           command: |
@@ -106,6 +108,7 @@ jobs:
           key: inventory-file-{{ .Revision }}
           paths: 
             - ~/react/ansible/inventory
+            - ~/react/node_modules
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -115,7 +118,7 @@ jobs:
       - restore_cache:
           keys: 
             - inventory-file-{{ .Revision }}
-            - node-modules-{{ checksum "package.json" }}
+            #- node-modules-{{ checksum "package.json" }}
       - add_ssh_keys: 
           fingerprints: 
             - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
