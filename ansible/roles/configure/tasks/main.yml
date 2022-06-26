@@ -35,9 +35,11 @@
 - name: "copy all files"
   become: yes
   copy:
-    src: "{{ role_path }}/files"
+    src: "{{ role_path }}/files/"
     dest: ~/web/
+    mode: '0755',
     backup: yes
+  when: file_data.stat.exists
 
 - name: "run app"
   become: yes
