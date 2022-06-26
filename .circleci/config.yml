@@ -140,7 +140,6 @@ jobs:
             cp Dockerfile ansible/roles/configure/files
             cp .dockerignore ansible/roles/configure/files
             cp package.json ansible/roles/configure/files
-            cp package-lock.json ansible/roles/configure/files
             ls -a ansible/roles/configure/files
       - run:
           name: Configure setup
