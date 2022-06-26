@@ -22,14 +22,14 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json" }}
+            - node-modules-{{ checksum "package.json" }}
       - run: 
           name: "Install packages"
           command: npm install
       - run: ls 
       # - run: npm lint
       - save_cache:
-          key: v2-node-modules-{{ checksum "package.json" }}
+          key: node-modules-{{ checksum "package.json" }}
           paths:
             - ~/react/node_modules
       # - sy:
@@ -48,7 +48,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json" }}
+            - node-modules-{{ checksum "package.json" }}
       - run: echo "Test passed"
       # - run: npm run test
 
@@ -67,7 +67,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json" }}
+            - node-modules-{{ checksum "package.json" }}
       # - run: npm audit
       - run: echo "Audited"
       - run: 
@@ -115,7 +115,7 @@ jobs:
       - restore_cache:
           keys: 
             - inventory-file-{{ .Revision }}
-            - v2-node-modules-{{ checksum "package.json" }}
+            - node-modules-{{ checksum "package.json" }}
       - add_ssh_keys: 
           fingerprints: 
             - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
