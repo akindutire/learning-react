@@ -103,7 +103,7 @@ jobs:
             --filters 'Name=tag:Project, Values=Udacity' \
             --output text >> ansible/inventory
       - save_cache: 
-          key: inventory-file-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_ID:0:5 }}
+          key: inventory-file-{{ .Revision }}
           paths: 
             - ~/react/ansible/inventory
   configure_infrastructure:
@@ -126,7 +126,7 @@ jobs:
             #rsync -a ./* /ansible/roles/configure/files/
       - restore_cache:
           keys: 
-            - inventory-file-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_ID:0:5 }}
+            - inventory-file-{{ .Revision }}
       - run: ls .
       - run:
           name: Configure setup
