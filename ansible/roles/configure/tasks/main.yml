@@ -18,22 +18,13 @@
     state: latest
     update_cache: true
 
-- name: "Enlist files"
-  become: yes
-  shell: "ls -a {{ role_path }}/files"
-  register: command_output
+# - name: "Enlist files"
+#   become: yes
+#   shell: "ls -a {{ role_path }}/files"
+#   register: command_output
 
-- debug: 
-    var: command_output.stdout_lines
-  
-- name: "clean files to push on server"
-  become: yes
-  shell: |
-    "set P={{ role_path }}/files"
-    "rm -rf ${P}/ansible"
-    "rm -rf ${P}/.circleci"
-    "rm -rf ${P}/cfn"
-    "rm -rf ${P}/ansible.cfg"
+# - debug: 
+#     var: command_output.stdout_lines
 
 - name: "create ~/web"
   ansible.builtin.file:

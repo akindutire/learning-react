@@ -125,10 +125,18 @@ jobs:
             cp -r --parents ./* /ansible/roles/configure/files
             ls /ansible/roles/configure/files
             #rsync -a ./* /ansible/roles/configure/files/
+      - run:
+          name: "clean files to push on server"
+          command: |
+            "set P=/ansible/roles/configure/files"
+            "rm -rf ${P}/ansible"
+            "rm -rf ${P}/.circleci"
+            "rm -rf ${P}/cfn"
+            "rm -rf ${P}/ansible.cfg"
       - restore_cache:
           keys: 
             - inventory-file-{{ .Revision }}
-      - run: ls .
+      - run: ls /ansible/roles/configure/files
       - run:
           name: Configure setup
           command: |
