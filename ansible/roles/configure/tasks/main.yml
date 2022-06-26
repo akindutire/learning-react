@@ -22,7 +22,7 @@
   become: yes
   shell: |
     set P = ~/react/ansible/roles/configure/files
-    "rm -rf ${P}/ansible"
+    "rm -rf ~/react/ansible/roles/configure/files/ansible"
     "rm -rf ${P}/.circleci"
     "rm -rf ${P}/ansible.cfg"
 
