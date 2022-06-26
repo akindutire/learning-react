@@ -131,7 +131,8 @@ jobs:
       - run:
           name: Configure setup
           command: |
-            ansible-playbook -i ansible/inventory ansible/playbook.yml
+            cd ansible
+            ansible-playbook -i inventory playbook.yml
     
   # smoke_test_green_deployment:
   #   docker: 
