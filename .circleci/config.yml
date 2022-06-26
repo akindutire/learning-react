@@ -108,17 +108,17 @@ jobs:
           key: inventory-file-{{ .Revision }}
           paths: 
             - ~/react/ansible/inventory
-            - ~/react/node_modules
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
+      - image: cimg/node:alpine
     working_directory: ~/react
     steps:
       - checkout
       - restore_cache:
           keys: 
+            - node-modules-{{ checksum "package.json" }}
             - inventory-file-{{ .Revision }}
-            #- node-modules-{{ checksum "package.json" }}
       - add_ssh_keys: 
           fingerprints: 
             - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
