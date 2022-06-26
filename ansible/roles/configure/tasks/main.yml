@@ -21,10 +21,16 @@
 - name: "clean files to push on server"
   become: yes
   shell: |
-    set P = ~/react/ansible/roles/configure/files
-    "rm -rf ${P}/ansible"
-    "rm -rf ${P}/.circleci"
-    "rm -rf ${P}/ansible.cfg"
+    "rm -rf /ansible"
+    "rm -rf /.circleci"
+    "rm -rf /cfn"
+    "rm -rf /ansible.cfg"
+
+- name: "create ~/web"
+  ansible.builtin.file:
+    path: ~/web
+    state: directory
+    mode: '0755'
 
 - name: "copy all files"
   become: yes
