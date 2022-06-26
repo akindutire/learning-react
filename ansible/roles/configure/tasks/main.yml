@@ -20,7 +20,7 @@
 
 - name: "Enlist files"
   become: yes
-  shell: "ls -a /"
+  shell: "ls -a {{ role_path }}/files"
   register: command_output
 
 - debug: 
@@ -29,10 +29,11 @@
 - name: "clean files to push on server"
   become: yes
   shell: |
-    "rm -rf /ansible"
-    "rm -rf /.circleci"
-    "rm -rf /cfn"
-    "rm -rf /ansible.cfg"
+    "set P={{ role_path }}/files"
+    "rm -rf ${P}/ansible"
+    "rm -rf ${P}/.circleci"
+    "rm -rf ${P}/cfn"
+    "rm -rf ${P}/ansible.cfg"
 
 - name: "create ~/web"
   ansible.builtin.file:
@@ -42,8 +43,8 @@
 
 - name: "copy all files"
   become: yes
-  synchronize:
-    src: /*
+  copy:
+    src: "{{ role_path }}/files"
     dest: ~/web/
     backup: yes
     
