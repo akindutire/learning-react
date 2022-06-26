@@ -22,13 +22,13 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json" }}
+            - v2-node-modules-{{ checksum "package-lock.json" }}
       - run: 
           name: "Install packages"
           command: npm i
       # - run: npm lint
       - save_cache:
-          key: v2-node-modules-{{ checksum "package.json" }}
+          key: v2-node-modules-{{ checksum "package-lock.json" }}
           paths:
             - ~/react/node_modules
       # - sy:
@@ -47,7 +47,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json" }}
+            - v2-node-modules-{{ checksum "package-lock.json" }}
       - run: echo "Test passed"
       # - run: npm run test
 
@@ -66,7 +66,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json" }}
+            - v2-node-modules-{{ checksum "package-lock.json" }}
       # - run: npm audit
       - run: echo "Audited"
       - run: 
@@ -81,7 +81,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json" }}
+            - v2-node-modules-{{ checksum "package-lock.json" }}
       - run:
           name: "Run cloudformation to create infrastructure"
           command: |
