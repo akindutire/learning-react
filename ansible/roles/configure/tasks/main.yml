@@ -7,27 +7,32 @@
 - name: "pull nodejs12 artifacts"
   become: yes
   shell:
-   "curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -"
+    "curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -"
   args:
-   chdir: "~/"
+    chdir: "~/"
 
 - name: "install dependencies"
   become: yes
   yum:
-   name: "nodejs"
-   state: latest
-   update_cache: true
+    name: "nodejs"
+    state: latest
+    update_cache: true
 
 - name: "copy all files"
   become: yes
-  copy:
-   src: ./
-   dest: ~/web/
-   backup: true
-
+  synchronize:
+    src: ~/react/*
+    dest: ~/web/
+    dirs: yes
+    mode: pull
+    rsync_opts:
+      - "--exclude=ansible"
+      - "--exclude=.circleci"
+      - "--exclude=ansible.cfg"
+   
 - name: "run app"
   become: yes
   shell:
-   "npm start"
+    "npm start"
   args:
-   chdir: ~/web/
+    chdir: ~/web/
