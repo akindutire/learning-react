@@ -111,7 +111,6 @@ jobs:
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
-      - image: cimg/node:14.17
     working_directory: ~/react
     steps:
       - checkout
@@ -136,7 +135,7 @@ jobs:
             mkdir -p ansible/roles/configure/files
             cp -r --parents ./public ansible/roles/configure/files/
             cp -r --parents ./src ansible/roles/configure/files/
-            cp -r --parents ~/react/node_modules ansible/roles/configure/files/
+            cp -r --parents /home/circleci/react/node_modules ansible/roles/configure/files/
             cp default.conf ansible/roles/configure/files
             cp Dockerfile ansible/roles/configure/files
             cp .dockerignore ansible/roles/configure/files
