@@ -17,6 +17,7 @@
     name: "nodejs"
     state: latest
     update_cache: true
+
 - name: "clean files to push on server"
   become: yes
   shell: |
@@ -28,8 +29,9 @@
 - name: "copy all files"
   become: yes
   synchronize:
-    src: ~/react/*
+    src: /*
     dest: ~/web/
+    backup: yes
     
    
 - name: "run app"
