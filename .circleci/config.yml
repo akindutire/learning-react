@@ -20,9 +20,9 @@ jobs:
     <<: *DAD
     steps:
       - checkout
-       - restore_cache:
-          keys: 
-            - v2-node-modules-{{ checksum "package.json" }}
+      - restore_cache:
+        keys: 
+          - v2-node-modules-{{ checksum "package.json" }}
       - run: 
           name: "Install packages"
           command: npm i
@@ -64,10 +64,6 @@ jobs:
     <<: *DAD
     steps:
       - checkout
-      # - run: exit 1
-      # - run: 
-      #     name: "Print world"
-      #     command: echo "world passed"
       - restore_cache:
           keys: 
             - v2-node-modules-{{ checksum "package.json" }}
