@@ -87,13 +87,13 @@ jobs:
             --template-file cfn/template.yml \
             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
             --region us-east-1
-      - run:
-          name: "Delete stack if failed"
-          when: on_fail
-          command: |
-            aws cloudformation delete-stack \
-            --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-            --region us-east-1
+      # - run:
+      #     name: "Delete stack if failed"
+      #     when: on_fail
+      #     command: |
+      #       aws cloudformation delete-stack \
+      #       --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+      #       --region us-east-1
       - run:
           name: Create inventory file
           command: |
@@ -113,7 +113,8 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys: 
-          fingerprints: ["93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"]
+          fingerprints: 
+            - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
       - run:
           name: Install ansible
           command: | 
