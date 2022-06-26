@@ -103,7 +103,7 @@ jobs:
             --filters 'Name=tag:Project, Values=Udacity' \
             --output text >> ansible/inventory
       - save_cache: 
-          key: inventory-file
+          key: inventory-file-{{ checksum "ansible/inventory" }}
           paths: 
             - ~/react/ansible/inventory
   configure_infrastructure:
@@ -126,7 +126,8 @@ jobs:
             #rsync -a ./* /ansible/roles/configure/files/
       - restore_cache:
           keys: 
-            - inventory-file
+            - inventory-file-{{ checksum "ansible/inventory" }}
+      - run: ls .
       - run:
           name: Configure setup
           command: |
