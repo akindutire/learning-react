@@ -127,6 +127,7 @@ jobs:
           name: Copy project files to configure
           command: |
             ls -a ansible/roles/configure
+            mkdir ansible/roles/configure/files
             cp -r --parents ./public ansible/roles/configure/files/
             cp -r --parents ./src ansible/roles/configure/files/
             cp -r --parents ./node_modules ansible/roles/configure/files/
