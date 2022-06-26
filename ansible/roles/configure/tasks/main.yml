@@ -37,7 +37,7 @@
   copy:
     src: "{{ role_path }}/files/"
     dest: ~/web/
-    mode: '0755',
+    mode: "0755",
     backup: yes
   when: file_data.stat.exists
 
