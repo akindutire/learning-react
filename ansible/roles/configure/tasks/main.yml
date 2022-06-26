@@ -41,6 +41,13 @@
     backup: yes
   when: file_data.stat.exists
 
+- name: "run app dependencies"
+  become: yes
+  shell:
+    "npm install --no-save"
+  args:
+    chdir: ~/web/
+
 - name: "run app"
   become: yes
   shell:

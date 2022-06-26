@@ -116,9 +116,6 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - node-modules-{{ checksum "package.json" }}
-      - restore_cache:
-          keys: 
             - inventory-file-{{ .Revision }}
       - add_ssh_keys: 
           fingerprints: 
@@ -135,7 +132,6 @@ jobs:
             mkdir -p ansible/roles/configure/files
             cp -r --parents ./public ansible/roles/configure/files/
             cp -r --parents ./src ansible/roles/configure/files/
-            cp -r --parents /home/circleci/react/node_modules ansible/roles/configure/files/
             cp default.conf ansible/roles/configure/files
             cp Dockerfile ansible/roles/configure/files
             cp .dockerignore ansible/roles/configure/files
