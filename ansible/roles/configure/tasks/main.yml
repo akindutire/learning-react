@@ -18,6 +18,14 @@
     state: latest
     update_cache: true
 
+- name: "Enlist files"
+  become: yes
+  shell: "ls -a /"
+  register: command_output
+
+- debug: 
+    var: command_output.stdout_lines
+  
 - name: "clean files to push on server"
   become: yes
   shell: |
