@@ -58,6 +58,6 @@
 - name: "run app"
   become: yes
   shell:
-    "npm start"
+    "node index.js"
   args:
     chdir: ~/web/
