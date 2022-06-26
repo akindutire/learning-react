@@ -39,7 +39,6 @@
     dest: ~/web/
     mode: "0755"
     backup: yes
-  when: file_data.stat.exists
 
 - name: "run app dependencies"
   become: yes
