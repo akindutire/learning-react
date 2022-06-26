@@ -112,9 +112,9 @@ jobs:
     working_directory: ~/react
     steps:
       - checkout
-      - add_ssh_keys: 
-          fingerprints: 
-            - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
+      # - add_ssh_keys: 
+      #     fingerprints: 
+      #       - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
       - run:
           name: Install ansible
           command: | 
