@@ -17,18 +17,20 @@
     name: "nodejs"
     state: latest
     update_cache: true
+- name: "clean files to push on server"
+  become: yes
+  shell: |
+    set P = ~/react/ansible/roles/configure/files
+    "rm -rf ${P}/ansible"
+    "rm -rf ${P}/.circleci"
+    "rm -rf ${P}/ansible.cfg"
 
 - name: "copy all files"
   become: yes
   synchronize:
     src: ~/react/*
     dest: ~/web/
-    dirs: yes
-    mode: pull
-    rsync_opts:
-      - "--exclude=ansible"
-      - "--exclude=.circleci"
-      - "--exclude=ansible.cfg"
+    
    
 - name: "run app"
   become: yes
