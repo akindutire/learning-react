@@ -123,6 +123,7 @@ jobs:
           name: Copy project files to configure
           command: |
             cp -r --parents ./* /ansible/roles/configure/files
+            ls /ansible/roles/configure/files
             #rsync -a ./* /ansible/roles/configure/files/
       - restore_cache:
           keys: 
