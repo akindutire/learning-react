@@ -133,11 +133,11 @@ jobs:
           command: |
             ansible-playbook -i ansible/inventory ansible/playbook.yml
     
-  smoke_test_green_deployment:
-    docker: 
-      - image: alpine:latest
-    steps:
-      run: echo "Smoke test"
+  # smoke_test_green_deployment:
+  #   docker: 
+  #     - image: alpine:latest
+  #   steps:
+  #     run: echo "Smoke test"
 
 
 
