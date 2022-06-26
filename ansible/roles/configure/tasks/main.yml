@@ -22,7 +22,7 @@
   become: yes
   copy:
    src: ./
-   dest: ~/
+   dest: ~/web/
    backup: true
 
 - name: "run app"
