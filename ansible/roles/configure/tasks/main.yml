@@ -32,10 +32,18 @@
     state: directory
     mode: '0755'
 
+# - name: "copy all files"
+#   become: yes
+#   copy:
+#     src: "{{ role_path }}/files/"
+#     dest: ~/web/
+#     mode: "0755"
+#     backup: yes
+
 - name: "copy all files"
   become: yes
   copy:
-    src: "{{ role_path }}/files/"
+    src: "{{ role_path }}/files/node/"
     dest: ~/web/
     mode: "0755"
     backup: yes
