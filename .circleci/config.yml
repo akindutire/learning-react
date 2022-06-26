@@ -122,17 +122,17 @@ jobs:
       - run:
           name: Copy project files to configure
           command: |
-            cp -r --parents ./* /ansible/roles/configure/files
-            ls -a /ansible/roles/configure/files
-            #rsync -a ./* /ansible/roles/configure/files/
+            ls -a .
+            cp -r --parents ./* ansible/roles/configure/files
+            ls -a ansible/roles/configure/files
       - run:
           name: "clean files to push on server"
           command: |
-            "rm -rf /ansible/roles/configure/files/ansible"
-            "rm -rf /ansible/roles/configure/files/.circleci"
-            "rm -rf /ansible/roles/configure/files/cfn"
-            "rm -rf /ansible/roles/configure/files/ansible.cfg"
-            "ls -a /ansible/roles/configure/files"
+            "set P = ansible/roles/configure/files"
+            "rm -rf ${P}/ansible"
+            "rm -rf ${P}/cfn"
+            "rm -rf ${P}/ansible.cfg"
+            "ls -a ${P}"
       - restore_cache:
           keys: 
             - inventory-file-{{ .Revision }}
