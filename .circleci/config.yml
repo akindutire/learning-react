@@ -1,6 +1,6 @@
 defaults: &DAD
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:14.17
     working_directory: ~/react 
     
 version: 2.1
@@ -26,6 +26,7 @@ jobs:
       - run: 
           name: "Install packages"
           command: npm i
+      - run: ls 
       # - run: npm lint
       - save_cache:
           key: v2-node-modules-{{ checksum "package-lock.json" }}
@@ -79,9 +80,6 @@ jobs:
     working_directory: ~/react
     steps:
       - checkout
-      - restore_cache:
-          keys: 
-            - v2-node-modules-{{ checksum "package-lock.json" }}
       - run:
           name: "Run cloudformation to create infrastructure"
           command: |
@@ -108,13 +106,16 @@ jobs:
           key: inventory-file-{{ .Revision }}
           paths: 
             - ~/react/ansible/inventory
-            - ~/react/node_modules
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
     working_directory: ~/react
     steps:
       - checkout
+      - restore_cache:
+          keys: 
+            - inventory-file-{{ .Revision }}
+            - v2-node-modules-{{ checksum "package-lock.json" }}
       - add_ssh_keys: 
           fingerprints: 
             - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
@@ -122,9 +123,6 @@ jobs:
           name: Install ansible
           command: | 
             apk add --update ansible
-      - restore_cache:
-          keys: 
-            - inventory-file-{{ .Revision }}
       - run:
           name: Copy project files to configure
           command: |
