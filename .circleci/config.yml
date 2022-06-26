@@ -103,7 +103,7 @@ jobs:
             --filters 'Name=tag:Project, Values=Udacity' \
             --output text >> ansible/inventory
       - save_cache: 
-          key: inventory-file-${CIRCLE_WORKFLOW_ID:0:5}
+          key: inventory-file-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_ID:0:5 }}
           paths: 
             - ~/react/ansible/inventory
   configure_infrastructure:
@@ -112,9 +112,9 @@ jobs:
     working_directory: ~/react
     steps:
       - checkout
-      # - add_ssh_keys: 
-      #     fingerprints: 
-      #       - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
+      - add_ssh_keys: 
+          fingerprints: 
+            - "93:c6:07:20:b2:a3:f5:d8:39:28:d3:4f:aa:f0:d9:91"
       - run:
           name: Install ansible
           command: | 
@@ -126,7 +126,7 @@ jobs:
             #rsync -a ./* /ansible/roles/configure/files/
       - restore_cache:
           keys: 
-            - inventory-file-${CIRCLE_WORKFLOW_ID:0:5}
+            - inventory-file-{{ .Branch }}-{{ .Environment.CIRCLE_WORKFLOW_ID:0:5 }}
       - run: ls .
       - run:
           name: Configure setup
