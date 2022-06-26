@@ -68,7 +68,7 @@ jobs:
       - restore_cache:
           keys:
             - v2-node-modules
-      # - run: 
+      # - run: npm audit
       - run: echo "Audited"
       - run: 
           name: "Print world"
@@ -87,14 +87,13 @@ jobs:
             --template-file cfn/template.yml \
             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
             --region us-east-1
-      # - run:
-      #     name: "Delete stack if failed"
-      #     when: on_fail
-      #     command: |
-      #       aws cloudformation delete-stack \
-      #       --template-file cfn/template.yml \
-      #       --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-      #       --region us-east-1
+      - run:
+          name: "Delete stack if failed"
+          when: on_fail
+          command: |
+            aws cloudformation delete-stack \
+            --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+            --region us-east-1
       - run:
           name: Create inventory file
           command: |
