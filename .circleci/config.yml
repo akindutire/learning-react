@@ -25,7 +25,7 @@ jobs:
           command: npm i
       # - run: npm lint
       - save_cache:
-          key: v2-node-modules-{{ checksum "package.json"}}
+          key: v2-node-modules-{{ .Revision }}
           paths:
             - ~/react/node_modules
       # - sy:
@@ -44,7 +44,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json"}}
+            - v2-node-modules-{{ .Revision }}
       - run: echo "Test passed"
       # - run: npm run test
 
@@ -67,7 +67,7 @@ jobs:
       #     command: echo "world passed"
       - restore_cache:
           keys: 
-            - v2-node-modules-{{ checksum "package.json"}}
+            - v2-node-modules-{{ .Revision }}
       # - run: npm audit
       - run: echo "Audited"
       - run: 
@@ -80,9 +80,6 @@ jobs:
     working_directory: ~/react
     steps:
       - checkout
-      - restore_cache:
-          keys: 
-            - v2-node-modules-{{ checksum "package.json"}}
       - run:
           name: "Run cloudformation to create infrastructure"
           command: |
@@ -109,7 +106,6 @@ jobs:
           key: inventory-file-{{ .Revision }}
           paths: 
             - ~/react/ansible/inventory
-            - v2-node-modules-{{ checksum "package.json"}}
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -126,7 +122,7 @@ jobs:
       - restore_cache:
           keys: 
             - inventory-file-{{ .Revision }}
-            - v2-node-modules-{{ checksum "package.json"}}
+            - v2-node-modules-{{ .Revision }}
       - run:
           name: Copy project files to configure
           command: |
