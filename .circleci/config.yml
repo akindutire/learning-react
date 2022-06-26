@@ -43,8 +43,8 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v2-node-modules
+          keys: 
+            - v2-node-modules-{{ checksum "package.json"}}
       - run: echo "Test passed"
       # - run: npm run test
 
@@ -66,8 +66,8 @@ jobs:
       #     name: "Print world"
       #     command: echo "world passed"
       - restore_cache:
-          keys:
-            - v2-node-modules
+          keys: 
+            - v2-node-modules-{{ checksum "package.json"}}
       # - run: npm audit
       - run: echo "Audited"
       - run: 
@@ -80,6 +80,9 @@ jobs:
     working_directory: ~/react
     steps:
       - checkout
+      - restore_cache:
+          keys: 
+            - v2-node-modules-{{ checksum "package.json"}}
       - run:
           name: "Run cloudformation to create infrastructure"
           command: |
@@ -106,6 +109,7 @@ jobs:
           key: inventory-file-{{ .Revision }}
           paths: 
             - ~/react/ansible/inventory
+            - v2-node-modules-{{ checksum "package.json"}}
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
