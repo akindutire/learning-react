@@ -17,6 +17,7 @@ commands:
     steps:
       - run:
           name: "Remove just created resoucre"
+          when: on_fail
           command: |
             aws cloudformation delete-stack \
             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
@@ -170,7 +171,6 @@ jobs:
           command: |
             return 1
       - destroy_stack
-        when: on_fail
 
   # Note that the `--parameter-overrides` let you specify a value that override parameter value in the bucket.yml template file.
   create_and_deploy_front_end:
