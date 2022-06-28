@@ -66,14 +66,14 @@
 - name: "install pm2"
   become: yes
   npm:
-   name: "pm2"
-   global: true
-   production: true
-   state: latest
+    name: "pm2"
+    global: true
+    production: true
+    state: latest
 
 - name: "run app"
   become: yes
   shell:
-   "pm2 start index.js -f"
+    "pm2 start index.js -f"
   args:
-   chdir: ~/web/
+    chdir: ~/web/
